@@ -54,6 +54,9 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem "factory_girl_rails", '~>4.2.0'
   gem 'faker'
+  
+  # annotate models
+  gem 'annotate'
 end
 
 group :development do
