@@ -24,7 +24,7 @@ class TodosController < ApplicationController
   # POST /todos
   # POST /todos.json
   def create
-    @todo = Todo.new(todo_params)
+    @todo = Todo.new(todo_create_params)
 
     respond_to do |format|
       if @todo.save
@@ -41,7 +41,7 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1.json
   def update
     respond_to do |format|
-      if @todo.update(todo_params)
+      if @todo.update(todo_update_params)
         format.html { redirect_to @todo, notice: 'Todo was successfully updated.' }
         format.json { render :show, status: :ok, location: @todo }
       else
@@ -68,7 +68,11 @@ class TodosController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def todo_params
-      params.require(:todo).permit(:summary, :description, :status, :user_id, :project_id)
+    def todo_create_params
+      params.require(:todo).permit(:summary, :description, :project_id)
+    end
+
+    def todo_update_params
+      params.require(:todo).permit(:summary, :description, :status, :project_id)
     end
 end
