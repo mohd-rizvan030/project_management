@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProjectsService } from './services/projects.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { ProjectsComponent } from './projects/projects.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {
         path: '',
@@ -26,7 +29,7 @@ import { ProjectsComponent } from './projects/projects.component';
       }
     ])
   ],
-  providers: [],
+  providers: [ ProjectsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

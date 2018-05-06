@@ -5,11 +5,13 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.all
+    render json: @projects, status: :ok
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+    render json: @project, status: :ok
   end
 
   # GET /projects/new
