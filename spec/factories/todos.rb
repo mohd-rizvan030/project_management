@@ -5,7 +5,7 @@
 #  id          :integer          not null, primary key
 #  summary     :string
 #  description :text
-#  status      :integer
+#  status      :integer          default("initial")
 #  user_id     :integer
 #  project_id  :integer
 #  created_at  :datetime         not null

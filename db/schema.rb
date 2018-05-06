@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20180506035029) do
   create_table "todos", force: :cascade do |t|
     t.string "summary"
     t.text "description"
-    t.integer "status"
+    t.integer "status", default: 0
     t.integer "user_id"
     t.bigint "project_id"
     t.datetime "created_at", null: false

@@ -5,7 +5,7 @@
 #  id          :integer          not null, primary key
 #  summary     :string
 #  description :text
-#  status      :integer
+#  status      :integer          default("initial")
 #  user_id     :integer
 #  project_id  :integer
 #  created_at  :datetime         not null
@@ -21,5 +21,10 @@
 #
 
 class Todo < ApplicationRecord
+  # Not using status 'new' but 'initial' because 'new' method already exist and rails is not letting me use that status
+  enum status: [:initial, :in_progress, :done]
+  validates :summary, presence: true
+  validates :status, presence: true
+  validates :project_id, presence: true
   belongs_to :project
 end
