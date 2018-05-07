@@ -1,6 +1,23 @@
-<div>
-  {{title}}
-  <ul>
-    <li *ngFor="let project of projects">{{ project.name }}<li>
-  </ul>
+<div class="container">
+  <h2>Project List</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td>{{ project.name }}</td>
+        <td>{{ project.created_at }}</td>
+        <td>
+          <button class="btn btn-primary">Show</button>
+          <button class="btn btn-primary">Edit</button>
+          <button class="btn btn-primary">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
