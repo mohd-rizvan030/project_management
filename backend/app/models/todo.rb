@@ -25,6 +25,6 @@ class Todo < ApplicationRecord
   enum status: [:initial, :in_progress, :done]
   validates :summary, presence: true
   validates :status, presence: true
-  validates :project_id, presence: true
+  validates :project, presence: true
   belongs_to :project
 end
