@@ -14,13 +14,19 @@
        </div>
     </div>
   </div>
-  <div class="text-align-left mt-50-px">Resources</div>
+  <div class="text-align-right">
+    <button class="btn btn-primary" (click)="newTodo(project.id)">Add a Todo</button>
+  </div>
+  <div class="text-align-left mt-50-px">
+    <h4>Todos</h4>
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Sumaary</th>
         <th>Description</th>
         <th>Status</th>
+        <th>Resource</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -29,10 +35,9 @@
         <td>{{ todo.summary }}</td>
         <td>{{ todo.description }}</td>
         <td>{{ todo.status }}</td>
+        <td>{{ todo.resource }}</td>
         <td>
-          <button class="btn btn-primary" (click) = "goToProject(project.id)">Show</button>
-          <button class="btn btn-primary">Edit</button>
-          <button class="btn btn-primary">Delete</button>
+          <button class="btn btn-danger" (click) = "deleteTodo(todo.id, project.id)">Delete</button>
         </td>
       </tr>
     </tbody>

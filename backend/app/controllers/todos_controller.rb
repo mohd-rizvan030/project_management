@@ -15,7 +15,6 @@ class TodosController < ApplicationController
   # GET /todos/1
   # GET /todos/1.json
   def show
-    debugger
     if @todo
       render json: @todo, status: :ok
     else
@@ -79,10 +78,10 @@ class TodosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_create_params
-      params.require(:todo).permit(:summary, :description, :todo_id)
+      params.require(:todo).permit(:summary, :description, :project_id)
     end
 
     def todo_update_params
-      params.require(:todo).permit(:summary, :description, :status, :todo_id)
+      params.require(:todo).permit(:summary, :description, :status)
     end
 end

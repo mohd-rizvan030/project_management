@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="mt-10-pc">
+    <h3>New Todo Form</h3>
+    <div class="col-md-6 ml-25-pc">
+      <form #todoForm="ngForm" (ngSubmit) = "createTodo(todoForm.value)">
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <label for="name">Summary*</label>
+          </div>
+           <div class="col-sm-8">
+             <input name="summary" type="text" class="form-control" id="sumary" placeholder="Summary" ngModel>
+           </div>
+        </div>
+        <div class="form-group row">
+          <label for="description" class="col-sm-3">Description</label>
+           <div class="col-sm-8">
+             <textarea name="description" type="text" rows="6" cols="50" class="form-control" id="description" placeholder="Description" ngModel></textarea>
+           </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="submit">
+      </form>
+    </div>
+  </div>
+</div>

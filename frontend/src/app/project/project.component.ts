@@ -9,19 +9,19 @@ const API_URL = environment.apiURL;
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  project_id;
+  projectId;
   project:Object;
   projectResources;
   todos;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient ) {
-    this.project_id = this.route.params
-    this.getProject(this.project_id)
-    this.getProjectResources(this.project_id)
-    this.getProjectTodos(this.project_id)
+    this.projectId = this.route.params
+    this.getProject(this.projectId._value.id)
+    this.getProjectResources(this.projectId._value.id)
+    this.getProjectTodos(this.projectId._value.id)
   }
 
   getProject(id){
-    this.http.get(API_URL +"/projects/" + id._value.id)
+    this.http.get(API_URL +"/projects/" + id)
       .subscribe(
         (response) => {
         this.project = response
@@ -31,8 +31,8 @@ export class ProjectComponent implements OnInit {
     })
   }
 
-  getProjectResources(project_id){
-    this.http.get(API_URL +"/get_project_resources?id="+project_id._value.id)
+  getProjectResources(projectId){
+    this.http.get(API_URL +"/get_project_resources?id="+projectId)
       .subscribe(
         (response) => {
         this.projectResources = response
@@ -42,9 +42,8 @@ export class ProjectComponent implements OnInit {
     })
   }
 
-
-  getProjectTodos(project_id){
-    this.http.get(API_URL +"/todos?project_id="+project_id._value.id)
+  getProjectTodos(projectId){
+    this.http.get(API_URL +"/todos?project_id="+projectId)
       .subscribe(
         (response) => {
         this.todos = response
@@ -53,6 +52,24 @@ export class ProjectComponent implements OnInit {
         console.log(error);
     })
   }
+
+  newTodo(projectId){
+    this.router.navigate(['projects/'+projectId+"/new-todo"]);
+  }
+
+  deleteTodo(todoId, projectId){
+    if (confirm("Are you sure?"))
+      this.http.delete(API_URL +"/todos/" + todoId)
+        .subscribe(
+          (response) => {
+          console.log("deleted");
+          this.getProjectTodos(projectId)
+        },
+          (error)=>{
+          console.log(error);
+      })
+  }
+
 
   ngOnInit() {
   }

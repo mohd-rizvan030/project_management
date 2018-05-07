@@ -1,10 +1,16 @@
 class UsersController < ApplicationController
-  # Manage users
-  before_action :authenticate_user!, only: []
+  require 'oauth'
+	require 'nokogiri'
+
+	def show                                    
+		@user = User.find(params[:id])
+		render json:{:user =>  @user}, status: :ok
+	end
+
 
   def logged_in
-    user = User.find_by_email "mohd.rizvan30@gmail.com"
-    sign_in(:user, user)
+    # user = User.find_by_email "mohd.rizvan30@gmail.com"
+    # sign_in(:user, user)
     if current_user
       render json: current_user, status: :ok
     else
@@ -29,4 +35,10 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  private
+    def fetch_user
+      @user = User.find_by_id(params[:id])
+    end
+
 end

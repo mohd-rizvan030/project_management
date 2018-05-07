@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { ProjectComponent } from './project/project.component';
 import { NewProjectComponent } from './new-project/new-project.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
+import { NewTodoComponent } from './new-todo/new-todo.component';
 const appRoutes:Routes = [
   {
     path: '',
@@ -25,6 +26,10 @@ const appRoutes:Routes = [
   {
     path: 'projects/:id/edit',
     component: UpdateProjectComponent
+  },
+  {
+    path: 'projects/:id/new-todo',
+    component: NewTodoComponent
   },
   {
     path: 'projects/:id',
@@ -54,6 +59,7 @@ const appRoutes:Routes = [
     ProjectComponent,
     NewProjectComponent,
     UpdateProjectComponent,
+    NewTodoComponent,
   ],
   imports: [
     BrowserModule,
