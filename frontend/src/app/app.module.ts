@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProjectsService } from './services/projects.service';
+import { UserService } from './services/user.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -41,7 +42,7 @@ const appRoutes:Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ ProjectsService ],
+  providers: [ ProjectsService, UserService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
