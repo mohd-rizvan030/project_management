@@ -5,11 +5,17 @@ class TodoAssignmentsController < ApplicationController
   # GET /todo_assignments.json
   def index
     @todo_assignments = TodoAssignment.all
+    render json: @todo_assignments, status: :ok
   end
 
   # GET /todo_assignments/1
   # GET /todo_assignments/1.json
   def show
+    if @todo_assignment
+      render json: @todo_assignment, status: :ok
+    else
+      render json:  {error: "No such assignment exists"} , status: :unprocessable_entity
+    end
   end
 
   # GET /todo_assignments/new
@@ -25,39 +31,38 @@ class TodoAssignmentsController < ApplicationController
   # POST /todo_assignments.json
   def create
     @todo_assignment = TodoAssignment.new(todo_assignment_params)
-
-    respond_to do |format|
-      if @todo_assignment.save
-        format.html { redirect_to @todo_assignment, notice: 'Todo assignment was successfully created.' }
-        format.json { render :show, status: :created, location: @todo_assignment }
-      else
-        format.html { render :new }
-        format.json { render json: @todo_assignment.errors, status: :unprocessable_entity }
-      end
+    if @todo_assignment.save
+      render json: @todo_assignment, status: :ok
+    else
+      render json: {error: @todo_assignment.errors.full_messages.to_sentence } , status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /todo_assignments/1
   # PATCH/PUT /todo_assignments/1.json
   def update
-    respond_to do |format|
+    if @todo_assignment
       if @todo_assignment.update(todo_assignment_params)
-        format.html { redirect_to @todo_assignment, notice: 'Todo assignment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todo_assignment }
+        render json: @todo_assignment, status: :ok
       else
-        format.html { render :edit }
-        format.json { render json: @todo_assignment.errors, status: :unprocessable_entity }
+        render json: {error: @todo_assignment.errors.full_messages.to_sentence } , status: :unprocessable_entity
       end
+    else
+      render json:  {error: "No such assignment exists"} , status: :unprocessable_entity
     end
   end
 
   # DELETE /todo_assignments/1
   # DELETE /todo_assignments/1.json
   def destroy
-    @todo_assignment.destroy
-    respond_to do |format|
-      format.html { redirect_to todo_assignments_url, notice: 'Todo assignment was successfully destroyed.' }
-      format.json { head :no_content }
+    if @todo_assignment
+      if @todo_assignment.destroy
+        render json: { success: 'Assignment was successfully destroyed.' }, status: :ok
+      else
+        render json: {error: @todo_assignment.errors.full_messages.to_sentence }  , status: :unprocessable_entity
+      end
+    else
+      render json:  {error: "No such assignment exists"} , status: :unprocessable_entity
     end
   end
 

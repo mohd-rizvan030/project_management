@@ -18,7 +18,7 @@
 #
 
 class ProjectResource < ApplicationRecord
-  validates :project, presence: true
+  validates :project, presence: true, uniqueness: { scope: :user, message: "Resource has already been assigned to the given project" }
   validates :user, presence: true
   belongs_to :project
   belongs_to :user

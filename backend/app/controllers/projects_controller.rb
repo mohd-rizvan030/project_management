@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :get_resources, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
@@ -13,6 +13,14 @@ class ProjectsController < ApplicationController
   def show
     if @project
       render json: @project, status: :ok
+    else
+      render json:  {error: "Project does not exist"} , status: :unprocessable_entity
+    end
+  end
+
+  def get_resources
+    if @project
+      render json: @project.project_resources, status: :ok
     else
       render json:  {error: "Project does not exist"} , status: :unprocessable_entity
     end

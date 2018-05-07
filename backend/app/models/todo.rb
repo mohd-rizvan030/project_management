@@ -22,7 +22,7 @@
 class Todo < ApplicationRecord
   # Not using status 'new' but 'initial' because 'new' method already exist and rails is not letting me use that status
   enum status: [:initial, :in_progress, :done]
-  validates :summary, presence: true
+  validates :summary, presence: true, length: { maximum: 255 }
   validates :status, presence: true
   validates :project, presence: true
   belongs_to :project

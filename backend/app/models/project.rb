@@ -11,6 +11,7 @@
 
 class Project < ApplicationRecord
   validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
-  validates :descrition, length: { maximum: 1500 }
+  validates :descrition, length: { maximum: 2000 }
   has_many :todos
+  has_many :project_resources
 end

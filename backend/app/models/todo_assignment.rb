@@ -18,5 +18,8 @@
 #
 
 class TodoAssignment < ApplicationRecord
+  validates :todo, presence: true, uniqueness: { scope: :user, message: "Todo has already been assigned to the given resource" }
+  validates :user, presence: true
   belongs_to :todo
+  belongs_to :user
 end

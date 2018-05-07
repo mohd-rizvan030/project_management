@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post 'sign_up' => 'users#user_signup'
     end
   end
-
+  get 'get_project_resources' => 'projects#get_resources'
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
