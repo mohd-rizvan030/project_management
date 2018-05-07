@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Project Details</h2>
+  <div class="col-md-12" *ngIf="project">
+    <div class="col-md-6 diplay-flex">
+        <div class="col-md-4 text-align-left">Name</div>
+       <div class="col-md-8">
+         {{project.name}}
+       </div>
+    </div>
+    <div class="col-md-6 diplay-flex">
+      <div class="col-md-4 text-align-left">Desciption</div>
+       <div class="col-md-8">
+         {{project.description}}
+       </div>
+    </div>
+  </div>
+  <div class="text-align-left mt-50-px">Resources</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sumaary</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="todos">
+      <tr *ngFor="let todo of todos">
+        <td>{{ todo.summary }}</td>
+        <td>{{ todo.description }}</td>
+        <td>{{ todo.status }}</td>
+        <td>
+          <button class="btn btn-primary" (click) = "goToProject(project.id)">Show</button>
+          <button class="btn btn-primary">Edit</button>
+          <button class="btn btn-primary">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

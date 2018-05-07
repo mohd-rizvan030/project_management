@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { ProjectComponent } from './project/project.component';
 const appRoutes:Routes = [
   {
     path: '',
@@ -18,6 +19,10 @@ const appRoutes:Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'projects/:id',
+    component: ProjectComponent
   },
   {
     path: 'projects',
@@ -34,7 +39,8 @@ const appRoutes:Routes = [
     DashboardComponent,
     NavbarComponent,
     ProjectsComponent,
-    LoginComponent
+    LoginComponent,
+    ProjectComponent,
   ],
   imports: [
     BrowserModule,

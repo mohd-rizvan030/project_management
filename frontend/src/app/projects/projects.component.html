@@ -13,7 +13,7 @@
         <td>{{ project.name }}</td>
         <td>{{ project.created_at }}</td>
         <td>
-          <button class="btn btn-primary">Show</button>
+          <button class="btn btn-primary" (click) = "goToProject(project.id)">Show</button>
           <button class="btn btn-primary">Edit</button>
           <button class="btn btn-primary">Delete</button>
         </td>

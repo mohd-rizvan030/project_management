@@ -4,7 +4,11 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
+    if params[:project_id]
+      @todos = Todo.where(project_id: params[:project_id])
+    else
+      @todos = Todo.all
+    end
     render json: @todos, status: :ok
   end
 

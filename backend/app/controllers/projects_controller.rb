@@ -18,13 +18,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def get_resources
-    if @project
-      render json: @project.project_resources, status: :ok
-    else
-      render json:  {error: "Project does not exist"} , status: :unprocessable_entity
-    end
-  end
 
   # GET /projects/new
   def new
@@ -69,6 +62,16 @@ class ProjectsController < ApplicationController
       else
         render json: {error: @project.errors.full_messages.to_sentence }  , status: :unprocessable_entity
       end
+    else
+      render json:  {error: "Project does not exist"} , status: :unprocessable_entity
+    end
+  end
+
+  def get_resources
+    if @project
+      user_ids = @project.project_resources.pluck(:user_id)
+      users = User.where(id: user_ids)
+      render json: users, status: :ok
     else
       render json:  {error: "Project does not exist"} , status: :unprocessable_entity
     end
