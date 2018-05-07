@@ -5,11 +5,18 @@ class TodosController < ApplicationController
   # GET /todos.json
   def index
     @todos = Todo.all
+    render json: @todos, status: :ok
   end
 
   # GET /todos/1
   # GET /todos/1.json
   def show
+    debugger
+    if @todo
+      render json: @todo, status: :ok
+    else
+      render json:  {error: "Todo does not exist"} , status: :unprocessable_entity
+    end
   end
 
   # GET /todos/new
@@ -25,54 +32,53 @@ class TodosController < ApplicationController
   # POST /todos.json
   def create
     @todo = Todo.new(todo_create_params)
-
-    respond_to do |format|
-      if @todo.save
-        format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
-        format.json { render :show, status: :created, location: @todo }
-      else
-        format.html { render :new }
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
-      end
+    if @todo.save
+      render json: @todo, status: :ok
+    else
+      render json: {error: @todo.errors.full_messages.to_sentence } , status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
   def update
-    respond_to do |format|
+    if @todo
       if @todo.update(todo_update_params)
-        format.html { redirect_to @todo, notice: 'Todo was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todo }
+        render json: @todo, status: :ok
       else
-        format.html { render :edit }
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
+        render json: {error: @todo.errors.full_messages.to_sentence }  , status: :unprocessable_entity
       end
+    else
+      render json:  {error: "Todo does not exist"} , status: :unprocessable_entity
     end
   end
 
   # DELETE /todos/1
   # DELETE /todos/1.json
   def destroy
-    @todo.destroy
-    respond_to do |format|
-      format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
-      format.json { head :no_content }
+    if @todo
+      if @todo.destroy
+        render json: { success: 'Todo was successfully destroyed.' }, status: :ok
+      else
+        render json: {error: @todo.errors.full_messages.to_sentence }  , status: :unprocessable_entity
+      end
+    else
+      render json:  {error: "Todo does not exist"} , status: :unprocessable_entity
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_todo
-      @todo = Todo.find(params[:id])
+      @todo = Todo.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_create_params
-      params.require(:todo).permit(:summary, :description, :project_id)
+      params.require(:todo).permit(:summary, :description, :todo_id)
     end
 
     def todo_update_params
-      params.require(:todo).permit(:summary, :description, :status, :project_id)
+      params.require(:todo).permit(:summary, :description, :status, :todo_id)
     end
 end
