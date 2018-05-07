@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :todo_assignments
+  resources :project_resources
   resources :todos
   resources :projects
   resources :users, only: %w(index show update create) do

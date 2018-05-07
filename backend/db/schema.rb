@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180506035029) do
+ActiveRecord::Schema.define(version: 20180507063601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "project_resources", force: :cascade do |t|
+    t.integer "user_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_resources_on_project_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -22,11 +30,18 @@ ActiveRecord::Schema.define(version: 20180506035029) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "todo_assignments", force: :cascade do |t|
+    t.integer "user_id"
+    t.bigint "todo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["todo_id"], name: "index_todo_assignments_on_todo_id"
+  end
+
   create_table "todos", force: :cascade do |t|
     t.string "summary"
     t.text "description"
     t.integer "status", default: 0
-    t.integer "user_id"
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,5 +65,7 @@ ActiveRecord::Schema.define(version: 20180506035029) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "project_resources", "projects"
+  add_foreign_key "todo_assignments", "todos"
   add_foreign_key "todos", "projects"
 end
