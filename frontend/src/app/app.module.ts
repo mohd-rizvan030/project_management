@@ -11,6 +11,8 @@ import { ProjectsComponent } from './projects/projects.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ProjectComponent } from './project/project.component';
+import { NewProjectComponent } from './new-project/new-project.component';
+import { UpdateProjectComponent } from './update-project/update-project.component';
 const appRoutes:Routes = [
   {
     path: '',
@@ -21,9 +23,18 @@ const appRoutes:Routes = [
     component: DashboardComponent
   },
   {
+    path: 'projects/:id/edit',
+    component: UpdateProjectComponent
+  },
+  {
     path: 'projects/:id',
     component: ProjectComponent
   },
+  {
+    path: 'projects-new',
+    component: NewProjectComponent
+  },
+
   {
     path: 'projects',
     component: ProjectsComponent
@@ -41,6 +52,8 @@ const appRoutes:Routes = [
     ProjectsComponent,
     LoginComponent,
     ProjectComponent,
+    NewProjectComponent,
+    UpdateProjectComponent,
   ],
   imports: [
     BrowserModule,

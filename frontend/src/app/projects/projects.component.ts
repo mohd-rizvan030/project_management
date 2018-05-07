@@ -13,8 +13,11 @@ const API_URL = environment.apiURL;
 export class ProjectsComponent implements OnInit {
   title = "Project List"
   projects;
-  self = this
   constructor(service: ProjectsService, private http: HttpClient, private router: Router) {
+    this.getAllProjects()
+  }
+
+  getAllProjects(){
     this.http.get(API_URL +"/projects")
       .subscribe(
         (response) => {
@@ -27,6 +30,28 @@ export class ProjectsComponent implements OnInit {
 
   goToProject(projectId){
     this.router.navigate(['projects/' + projectId]);
+  }
+
+  newProject(){
+    this.router.navigate(['projects-new']);
+  }
+
+  editProject(projectId){
+    this.router.navigate(['projects/' + projectId+"/edit"]);
+  }
+
+  deleteProject(projectId){
+    if (confirm("Are you sure?"))
+      this.http.delete(API_URL +"/projects/" + projectId)
+        .subscribe(
+          (response) => {
+          console.log("deleted");
+          this.getAllProjects()
+        },
+          (error)=>{
+          console.log(error);
+        })
+
   }
 
   ngOnInit() {
