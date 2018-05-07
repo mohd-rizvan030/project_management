@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :get_resources, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :get_resources, :available_resources, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
@@ -67,7 +67,38 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # Returns the resources of this project
   def get_resources
+    if @project
+      user_ids = @project.project_resources.pluck(:user_id)
+      users = User.where.not(id: user_ids)
+      render json: users, status: :ok
+    else
+      render json:  {error: "Project does not exist"} , status: :unprocessable_entity
+    end
+  end
+
+  # remove the resource from the project
+  def remove_resource
+    if params[:project_id] and params[:user_id]
+      project_resource = ProjectResource.where(project_id: params[:project_id], user_id: params[:user_id]).first
+      if project_resource
+        begin
+          project_resource.destroy
+          render json: { success: 'Resource removed successfully' }, status: :ok
+        rescue Exception=>e
+          render json: {error: e.errors.full_messages.to_sentence }  , status: :unprocessable_entity
+        end
+      else
+        render json:  {error: "No such mapping exists"} , status: :unprocessable_entity
+      end
+    else
+      render json:  {error: "Invalid data"} , status: :unprocessable_entity
+    end
+  end
+
+# Returns the resources available for this project
+  def available_resources
     if @project
       user_ids = @project.project_resources.pluck(:user_id)
       users = User.where(id: user_ids)

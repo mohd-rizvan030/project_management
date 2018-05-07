@@ -16,9 +16,9 @@
         <td>{{ project.name }}</td>
         <td>{{ project.created_at }}</td>
         <td>
-          <button class="btn btn-primary" (click) = "goToProject(project.id)">Show</button>
+          <button class="btn btn-info" (click) = "goToProject(project.id)">Show</button>
           <button class="btn btn-primary" (click) = "editProject(project.id)">Edit</button>
-          <button class="btn btn-primary" (click) = "deleteProject(project.id)">Delete</button>
+          <button class="btn btn-danger" (click) = "deleteProject(project.id)">Delete</button>
         </td>
       </tr>
     </tbody>

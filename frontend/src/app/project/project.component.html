@@ -15,6 +15,7 @@
     </div>
   </div>
   <div class="text-align-right">
+    <button class="btn btn-primary" data-target="#loginModal" data-toggle="modal">Add a Resource</button>
     <button class="btn btn-primary" (click)="newTodo(project.id)">Add a Todo</button>
   </div>
   <div class="text-align-left mt-50-px">
@@ -42,4 +43,51 @@
       </tr>
     </tbody>
   </table>
+</div>
+<!-- Todos End -->
+<!-- Resource in Project  -->
+<div class="text-align-left ml-50-px mt-50-px">
+  <h4>Resources</h4>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="projectResources">
+    <tr *ngFor="let resource of projectResources">
+      <td>{{resource.email}}</td>
+      <td>
+        <button class="btn btn-danger" (click) = "removeResourceFromProject(resource.id, project.id)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- resources ends here -->
+
+<div class="modal fade" tabindex="-1" id="loginModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Resource to Project</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+              <form #addResourceForm="ngForm" (ngSubmit) = "addResource(addResourceForm.value)">
+                  <div class="form-group">
+                      <label for="inputUserName">Select</label>
+                      <select [(ngModel)]="selectedValue" class="form-control" name="selectedValue">
+                        <option *ngFor="let resource of availableResources" [ngValue]="resource">{{resource.email}}</option>
+                      </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Add</button>
+              </form>
+            </div>
+        </div>
+    </div>
 </div>

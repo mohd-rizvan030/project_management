@@ -12,6 +12,7 @@ export class ProjectComponent implements OnInit {
   projectId;
   project:Object;
   projectResources;
+  availableResources;
   todos;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient ) {
     this.projectId = this.route.params
@@ -42,6 +43,17 @@ export class ProjectComponent implements OnInit {
     })
   }
 
+  getAvailableResourcesForProject(projectId){
+    this.http.get(API_URL +"/get_available_resources?id="+projectId)
+      .subscribe(
+        (response) => {
+        this.availableResources = response
+      },
+        (error)=>{
+        console.log(error);
+    })
+  }
+
   getProjectTodos(projectId){
     this.http.get(API_URL +"/todos?project_id="+projectId)
       .subscribe(
@@ -64,6 +76,30 @@ export class ProjectComponent implements OnInit {
           (response) => {
           console.log("deleted");
           this.getProjectTodos(projectId)
+        },
+          (error)=>{
+          console.log(error);
+      })
+  }
+
+  addResource(resouce){
+    this.http.post(API_URL + "/project_resources", { project_resource: { user_id: resouce.selectedValue.id , project_id: this.projectId._value.id } })
+      .subscribe(
+        (response) => {
+          console.log("Resource added successfully")
+      },
+       (error)=>{
+        console.log(error);
+      })
+  }
+
+  removeResourceFromProject(resourceId, projectId){
+    if (confirm("Are you sure?"))
+      this.http.get(API_URL +"/remove_project_resource/?user_id=" + resourceId+"&project_id="+projectId)
+        .subscribe(
+          (response) => {
+          console.log("deleted");
+          this.getProjectResources(projectId)
         },
           (error)=>{
           console.log(error);

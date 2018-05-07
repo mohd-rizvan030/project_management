@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
   end
   get 'get_project_resources' => 'projects#get_resources'
+  get 'get_available_resources' => 'projects#available_resources'
+  get 'remove_project_resource' => 'projects#remove_resource'
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
