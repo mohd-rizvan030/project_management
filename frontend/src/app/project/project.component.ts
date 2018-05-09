@@ -18,7 +18,6 @@ export class ProjectComponent implements OnInit {
     this.projectId = this.route.params;
     this.getProject(this.projectId._value.id);
     this.getProjectResources(this.projectId._value.id);
-    this.getAvailableResourcesForProject(this.projectId._value.id);
     this.getProjectTodos(this.projectId._value.id);
   }
 
@@ -44,8 +43,8 @@ export class ProjectComponent implements OnInit {
     })
   }
 
-  getAvailableResourcesForProject(projectId){
-    this.http.get(API_URL +"/get_available_resources?project_id="+projectId)
+  getAvailableResourcesForProject(){
+    this.http.get(API_URL +"/get_available_resources?project_id="+this.projectId._value.id)
       .subscribe(
         (response) => {
         this.availableResources = response
@@ -87,6 +86,7 @@ export class ProjectComponent implements OnInit {
     this.http.post(API_URL + "/project_resources", { project_resource: { user_id: resouce.selectedValue.id , project_id: this.projectId._value.id } })
       .subscribe(
         (response) => {
+          this.getProjectResources(this.projectId._value.id);
           console.log("Resource added successfully")
       },
        (error)=>{
