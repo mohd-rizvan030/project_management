@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post 'sign_up' => 'users#user_signup'
     end
   end
-  get 'get_project_resources' => 'projects#get_resources'
+  get 'get_project_resources' => 'projects#get_project_resources'
   get 'get_available_resources' => 'projects#available_resources'
   get 'remove_project_resource' => 'projects#remove_resource'
   devise_for :users

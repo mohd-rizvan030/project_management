@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :get_resources, :available_resources, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
@@ -68,10 +68,11 @@ class ProjectsController < ApplicationController
   end
 
   # Returns the resources of this project
-  def get_resources
-    if @project
-      user_ids = @project.project_resources.pluck(:user_id)
-      users = User.where.not(id: user_ids)
+  def get_project_resources
+    project = Project.where(id: params[:project_id]).first
+    if project
+      user_ids = project.project_resources.pluck(:user_id)
+      users = User.where(id: user_ids)
       render json: users, status: :ok
     else
       render json:  {error: "Project does not exist"} , status: :unprocessable_entity
@@ -99,9 +100,10 @@ class ProjectsController < ApplicationController
 
 # Returns the resources available for this project
   def available_resources
-    if @project
-      user_ids = @project.project_resources.pluck(:user_id)
-      users = User.where(id: user_ids)
+    project = Project.where(id: params[:project_id]).first
+    if project
+      user_ids = project.project_resources.pluck(:user_id)
+      users = User.where.not(id: user_ids)
       render json: users, status: :ok
     else
       render json:  {error: "Project does not exist"} , status: :unprocessable_entity

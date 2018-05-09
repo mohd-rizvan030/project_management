@@ -15,10 +15,11 @@ export class ProjectComponent implements OnInit {
   availableResources;
   todos;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient ) {
-    this.projectId = this.route.params
-    this.getProject(this.projectId._value.id)
-    this.getProjectResources(this.projectId._value.id)
-    this.getProjectTodos(this.projectId._value.id)
+    this.projectId = this.route.params;
+    this.getProject(this.projectId._value.id);
+    this.getProjectResources(this.projectId._value.id);
+    this.getAvailableResourcesForProject(this.projectId._value.id);
+    this.getProjectTodos(this.projectId._value.id);
   }
 
   getProject(id){
@@ -33,7 +34,7 @@ export class ProjectComponent implements OnInit {
   }
 
   getProjectResources(projectId){
-    this.http.get(API_URL +"/get_project_resources?id="+projectId)
+    this.http.get(API_URL +"/get_project_resources?project_id="+projectId)
       .subscribe(
         (response) => {
         this.projectResources = response
@@ -44,7 +45,7 @@ export class ProjectComponent implements OnInit {
   }
 
   getAvailableResourcesForProject(projectId){
-    this.http.get(API_URL +"/get_available_resources?id="+projectId)
+    this.http.get(API_URL +"/get_available_resources?project_id="+projectId)
       .subscribe(
         (response) => {
         this.availableResources = response
