@@ -14,6 +14,7 @@ export class ProjectComponent implements OnInit {
   projectResources;
   availableResources;
   todos;
+  currentTodo;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient ) {
     this.projectId = this.route.params;
     this.getProject(this.projectId._value.id);
@@ -104,6 +105,23 @@ export class ProjectComponent implements OnInit {
         },
           (error)=>{
           console.log(error);
+      })
+  }
+
+  getResourcesForTodo(projectId,todo){
+    this.getProjectResources(projectId);
+    this.currentTodo = todo;
+  }
+
+  assignAResource(resource, todo){
+    this.http.post(API_URL + "/todo_assignments", { todo_assignment: { user_id: resource.selectedValue.id , todo_id: this.currentTodo.id } })
+      .subscribe(
+        (response) => {
+          this.getProjectResources(this.projectId._value.id);
+          console.log("Resource assined successfully")
+      },
+       (error)=>{
+        console.log(error);
       })
   }
 
