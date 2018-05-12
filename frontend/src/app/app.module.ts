@@ -14,6 +14,7 @@ import { ProjectComponent } from './project/project.component';
 import { NewProjectComponent } from './new-project/new-project.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
 import { NewTodoComponent } from './new-todo/new-todo.component';
+import { TodoAssignmentComponent } from './todo-assignment/todo-assignment.component';
 const appRoutes:Routes = [
   {
     path: '',
@@ -60,6 +61,7 @@ const appRoutes:Routes = [
     NewProjectComponent,
     UpdateProjectComponent,
     NewTodoComponent,
+    TodoAssignmentComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,14 +14,19 @@ export class ProjectComponent implements OnInit {
   projectResources;
   availableResources;
   todos;
+  editable;
   currentTodo;
+  showModal;
+
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient ) {
     this.projectId = this.route.params;
     this.getProject(this.projectId._value.id);
     this.getProjectResources(this.projectId._value.id);
     this.getProjectTodos(this.projectId._value.id);
+
   }
 
+  oneTodo = "Hellow WOrld";
   getProject(id){
     this.http.get(API_URL +"/projects/" + id)
       .subscribe(
@@ -110,20 +115,14 @@ export class ProjectComponent implements OnInit {
 
   getResourcesForTodo(projectId,todo){
     this.getProjectResources(projectId);
-    this.currentTodo = todo;
   }
 
-  assignAResource(resource, todo){
-    this.http.post(API_URL + "/todo_assignments", { todo_assignment: { user_id: resource.selectedValue.id , todo_id: this.currentTodo.id } })
-      .subscribe(
-        (response) => {
-          this.getProjectResources(this.projectId._value.id);
-          console.log("Resource assined successfully")
-      },
-       (error)=>{
-        console.log(error);
-      })
+  editTodo(todo){
+    this.editable =true;
+    this.currentTodo = todo;
+    this.showModal = true;
   }
+
 
 
   ngOnInit() {
