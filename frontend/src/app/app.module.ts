@@ -17,6 +17,7 @@ import { NewTodoComponent } from './new-todo/new-todo.component';
 import { TodoAssignmentComponent } from './todo-assignment/todo-assignment.component';
 import { AdminComponent } from './admin/admin.component';
 import { UpdateTodoStatusComponent } from './update-todo-status/update-todo-status.component';
+import { FooterComponent } from './footer/footer.component';
 const appRoutes:Routes = [
   {
     path: '',
@@ -70,6 +71,7 @@ const appRoutes:Routes = [
     TodoAssignmentComponent,
     AdminComponent,
     UpdateTodoStatusComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
