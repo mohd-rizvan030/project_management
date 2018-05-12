@@ -1,4 +1,29 @@
 <h2>{{ dashboardTitle }}</h2>
-<p>
-  dashboard works!
-</p>
+<div class="container">
+  <div class="text-align-left mt-50-px">
+    <h4>My Todos</h4>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sumaary</th>
+        <th>Description</th>
+        <th>Project</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="myTodos">
+      <tr *ngFor="let todo of myTodos">
+        <td>{{ todo.summary }}</td>
+        <td>{{ todo.description }}</td>
+        <td>{{ todo.project_name }}</td>
+        <td>{{ todo.status }}</td>
+        <td><button class="btn btn-primary" (click)="updateTodo(todo)" >Update Status</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-update-todo-status [showModal]="showModal" [todo]="currentTodo" [editable]= "editable" *ngIf="editable"></app-update-todo-status>

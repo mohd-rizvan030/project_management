@@ -6,8 +6,12 @@ class TodosController < ApplicationController
   def index
     if params[:project_id]
       @todos = Todo.where(project_id: params[:project_id])
+    elsif params[:myTodos]
+      # user_id = current_user.id
+      user_id = 1
+      @todos = Todo.joins(:todo_assignment).where("todo_assignments.user_id =?", user_id).order("todos.project_id")
     else
-      @todos = Todo.all
+      @todos = Todo.all.order(:project_id)
     end
     render json: @todos, status: :ok
   end

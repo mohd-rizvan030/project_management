@@ -26,7 +26,6 @@ export class ProjectComponent implements OnInit {
 
   }
 
-  oneTodo = "Hellow WOrld";
   getProject(id){
     this.http.get(API_URL +"/projects/" + id)
       .subscribe(

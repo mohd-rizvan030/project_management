@@ -15,6 +15,8 @@ import { NewProjectComponent } from './new-project/new-project.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
 import { NewTodoComponent } from './new-todo/new-todo.component';
 import { TodoAssignmentComponent } from './todo-assignment/todo-assignment.component';
+import { AdminComponent } from './admin/admin.component';
+import { UpdateTodoStatusComponent } from './update-todo-status/update-todo-status.component';
 const appRoutes:Routes = [
   {
     path: '',
@@ -23,6 +25,10 @@ const appRoutes:Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent
+  },
+  {
+    path: 'admin',
+    component: AdminComponent
   },
   {
     path: 'projects/:id/edit',
@@ -62,6 +68,8 @@ const appRoutes:Routes = [
     UpdateProjectComponent,
     NewTodoComponent,
     TodoAssignmentComponent,
+    AdminComponent,
+    UpdateTodoStatusComponent,
   ],
   imports: [
     BrowserModule,

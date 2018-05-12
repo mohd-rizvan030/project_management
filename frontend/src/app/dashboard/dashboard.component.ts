@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
+const API_URL = environment.apiURL;
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +11,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   dashboardTitle = "Welcome to Dashboard"
-  constructor() { }
+  myTodos;
+  editable;
+  currentTodo;
+  showModal;
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {
+    this.getMyTodos()
+  }
+
+  getMyTodos(){
+    this.http.get(API_URL +"/todos?myTodos=true")
+      .subscribe(
+        (response) => {
+        this.myTodos = response
+      },
+        (error)=>{
+        console.log(error);
+    })
+  }
+
+  updateTodo(todo){
+    this.editable =true;
+    this.currentTodo = todo;
+    this.showModal = true;
+  }
 
   ngOnInit() {
   }

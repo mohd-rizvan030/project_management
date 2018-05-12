@@ -26,4 +26,5 @@ class Todo < ApplicationRecord
   validates :status, presence: true
   validates :project, presence: true
   belongs_to :project
+  has_one :todo_assignment
 end

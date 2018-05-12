@@ -16,8 +16,6 @@ export class TodoAssignmentComponent implements OnInit {
   @Input() projectResources;
   @Input() editable;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {
-    console.log();
-
   }
 
   assignAResource(resource){
