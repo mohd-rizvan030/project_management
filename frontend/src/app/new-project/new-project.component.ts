@@ -22,8 +22,7 @@ export class NewProjectComponent implements OnInit {
     this.http.post(API_URL + "/projects", {project: { name: projectParams.name , description: projectParams.description } })
       .subscribe(
         (response) => {
-          console.log("Project Created Successfully")
-          this.flashMessage.show('Project Created Successfully!', { cssClass: 'alert-success', timeout: 5000 });
+          this.flashMessage.show('Project Created Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.router.navigate(['projects']);
       },
        (error)=>{

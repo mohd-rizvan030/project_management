@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
         this.myTodos = response
       },
         (error)=>{
-        console.log(error);
+          this.flashMessage.show('Error! Some Error occured', { cssClass: 'alert-danger', timeout: 4000 });
     })
   }
 
@@ -53,10 +53,10 @@ export class DashboardComponent implements OnInit {
       .subscribe(
         (response:Response) => {
           this.currentTodo.status = response["status"];
-          console.log("Todo status updated successfully");
+          this.flashMessage.show('Status updated Successfully!', { cssClass: 'alert-success', timeout: 4000 });
       },
        (error)=>{
-        console.log(error);
+        this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
       })
   }
 

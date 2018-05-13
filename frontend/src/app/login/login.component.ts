@@ -25,10 +25,11 @@ export class LoginComponent implements OnInit {
           this.user.setUserLoggedIn()
           // if(response["user"]["isAdmin"]==true)
           this.user.setAdmin();
+          this.flashMessage.show('Logged in Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.router.navigate(['dashboard']);
       },
        (error)=>{
-        console.log(error);
+         this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
       })
     }
 

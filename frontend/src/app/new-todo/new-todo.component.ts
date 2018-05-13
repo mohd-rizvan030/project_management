@@ -22,11 +22,11 @@ export class NewTodoComponent implements OnInit {
     this.http.post(API_URL + "/todos", {todo: { summary: projectParams.summary , description: projectParams.description, project_id: this.project_id._value.id } })
       .subscribe(
         (response) => {
-          console.log("Project Created Successfully")
+          this.flashMessage.show('Todo created Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.router.navigate(['projects/' + this.project_id._value.id]);
       },
        (error)=>{
-        console.log(error);
+        this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
       })
   }
 

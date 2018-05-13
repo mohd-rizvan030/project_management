@@ -34,7 +34,7 @@ export class ProjectComponent implements OnInit {
         this.project = response
       },
         (error)=>{
-        console.log(error);
+        this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
     })
   }
 
@@ -45,7 +45,7 @@ export class ProjectComponent implements OnInit {
         this.projectResources = response
       },
         (error)=>{
-        console.log(error);
+        this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
     })
   }
 
@@ -80,11 +80,11 @@ export class ProjectComponent implements OnInit {
       this.http.delete(API_URL +"/todos/" + todoId)
         .subscribe(
           (response) => {
-          console.log("deleted");
+          this.flashMessage.show('Todo deleted Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.getProjectTodos(projectId)
         },
           (error)=>{
-          console.log(error);
+          this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
       })
   }
 
@@ -93,10 +93,10 @@ export class ProjectComponent implements OnInit {
       .subscribe(
         (response) => {
           this.getProjectResources(this.projectId._value.id);
-          console.log("Resource added successfully")
+          this.flashMessage.show('Resource added Successfully!', { cssClass: 'alert-success', timeout: 4000 });
       },
        (error)=>{
-        console.log(error);
+        this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
       })
   }
 
@@ -105,11 +105,11 @@ export class ProjectComponent implements OnInit {
       this.http.get(API_URL +"/remove_project_resource/?user_id=" + resourceId+"&project_id="+projectId)
         .subscribe(
           (response) => {
-          console.log("deleted");
+          this.flashMessage.show('Resource removed from project Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.getProjectResources(projectId)
         },
           (error)=>{
-          console.log(error);
+          this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
       })
   }
 
@@ -133,21 +133,21 @@ export class ProjectComponent implements OnInit {
       this.http.put(API_URL + "/todo_assignments/"+this.currentTodo.todo_assignment_id, data)
         .subscribe(
           (response:Response) => {
-            console.log("Resource assined successfully");
+            this.flashMessage.show('Todo assigned to resource Successfully!', { cssClass: 'alert-success', timeout: 4000 });
             this.currentTodo.resource = response["todo"].resource;
         },
          (error)=>{
-          console.log(error);
+          this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
         })
     else
       this.http.post(API_URL + "/todo_assignments", data)
         .subscribe(
           (response) => {
-            console.log("Resource assined successfully");
+            this.flashMessage.show('Todo assigned to resource Successfully!', { cssClass: 'alert-success', timeout: 4000 });
             this.currentTodo.resource = response["todo"].resource;
         },
          (error)=>{
-          console.log(error);
+          this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
         })
   }
 

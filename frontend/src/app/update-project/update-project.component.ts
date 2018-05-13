@@ -35,11 +35,11 @@ export class UpdateProjectComponent implements OnInit {
     this.http.put(API_URL + "/projects/" + this.project_id._value.id, {project: { name: projectParams.name , description: projectParams.description } })
       .subscribe(
         (response) => {
-          console.log("Project Created Successfully")
+          this.flashMessage.show('Project updated Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.router.navigate(['projects']);
       },
        (error)=>{
-        console.log(error);
+        this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
       })
   }
   ngOnInit() {

@@ -46,11 +46,11 @@ export class ProjectsComponent implements OnInit {
       this.http.delete(API_URL +"/projects/" + projectId)
         .subscribe(
           (response) => {
-          console.log("deleted");
+          this.flashMessage.show('Project deleted Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.getAllProjects()
         },
           (error)=>{
-          console.log(error);
+          this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
         })
 
   }
