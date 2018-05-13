@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (response) => {
           this.user.setUserLoggedIn()
+          // if(response["user"]["isAdmin"]==true)
+          // this.user.setAdmin();
           this.router.navigate(['dashboard']);
       },
        (error)=>{

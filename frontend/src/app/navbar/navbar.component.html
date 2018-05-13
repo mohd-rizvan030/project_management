@@ -4,10 +4,10 @@
       <li routerLinkActive="nav-item active">
         <a class="nav-link" routerLink="/">Dashboard<span class="sr-only">(current)</span></a>
       </li>
-      <li routerLinkActive="nav-item active">
+      <li routerLinkActive="nav-item active" *ngIf="user.getAdmin()">
         <a class="nav-link" routerLink="/admin">Admin<span class="sr-only">(current)</span></a>
       </li>
-      <li routerLinkActive="nav-item active">
+      <li routerLinkActive="nav-item active" *ngIf="user.getAdmin()">
         <a class="nav-link" routerLink="/projects">Projects<span class="sr-only">(current)</span></a>
       </li>
 

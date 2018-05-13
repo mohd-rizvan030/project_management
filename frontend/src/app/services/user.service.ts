@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserService {
   private isUserLoggedIn;
+  private isAdmin;
   constructor() {
     this.isUserLoggedIn = false;
+    this.isAdmin = false;
   }
 
   setUserLoggedIn() {
@@ -13,6 +15,14 @@ export class UserService {
 
   getUserLoggedIn() {
     return this.isUserLoggedIn;
+  }
+
+  setAdmin() {
+    this.isAdmin = true;
+  }
+
+  getAdmin() {
+    return this.isAdmin;
   }
 
   setUserLoggedOut(){

@@ -21,7 +21,8 @@ export class AppComponent implements OnInit{
     this.http.get(API_URL +"/users/logged_in")
       .subscribe(
         (response) => {
-         this.user.setUserLoggedIn()
+         this.user.setUserLoggedIn();
+        //  this.user.setAdmin();
       },
        (error)=>{
         console.log(error);

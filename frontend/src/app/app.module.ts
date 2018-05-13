@@ -21,6 +21,8 @@ import { FooterComponent } from './footer/footer.component';
 import { GoogleChartComponent } from './google-chart/google-chart.component';
 import { ProjectChartComponent } from './project-chart/project-chart.component';
 import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
+import { ResourceAuthGuard } from './resource-auth.guard';
+import { AdminAuthGuard } from './admin-auth.guard';
 const appRoutes:Routes = [
   {
     path: '',
@@ -28,31 +30,38 @@ const appRoutes:Routes = [
   },
   {
     path: 'dashboard',
+    canActivate: [ResourceAuthGuard],
     component: DashboardComponent
   },
   {
     path: 'admin',
+    canActivate: [AdminAuthGuard],
     component: AdminComponent
   },
   {
     path: 'projects/:id/edit',
+    canActivate: [AdminAuthGuard],
     component: UpdateProjectComponent
   },
   {
     path: 'projects/:id/new-todo',
+    canActivate: [AdminAuthGuard],
     component: NewTodoComponent
   },
   {
     path: 'projects/:id',
+    canActivate: [AdminAuthGuard],
     component: ProjectComponent
   },
   {
     path: 'projects-new',
+    canActivate: [AdminAuthGuard],
     component: NewProjectComponent
   },
 
   {
     path: 'projects',
+    canActivate: [AdminAuthGuard],
     component: ProjectsComponent
   },
   {
@@ -85,7 +94,7 @@ const appRoutes:Routes = [
     FlashMessagesModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ ProjectsService, UserService, FlashMessagesService ],
+  providers: [ ProjectsService, UserService, FlashMessagesService, ResourceAuthGuard, AdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
