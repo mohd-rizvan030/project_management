@@ -41,7 +41,7 @@
           <button class="btn btn-danger" (click) = "deleteTodo(todo.id, project.id)">Delete</button>
         </td>
         <td>
-        <button class="btn btn-primary" (click)="editTodo(todo)" >Assign</button>
+        <button class="btn btn-primary" (click)="showTodoAssignmentModal(todo)" >Assign</button>
         </td>
       </tr>
     </tbody>
@@ -96,4 +96,34 @@
     </div>
 </div>
 <!-- Add a resource to project modal ends here -->
-<app-todo-assignment [showModal]="showModal" [projectResources]="projectResources" [todo]="currentTodo" [editable]= "editable" *ngIf="editable"></app-todo-assignment>
+
+<!-- Assign A Todo to a resource Modal  -->
+<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
+  <div class="modal" tabindex="-1" role="dialog" style="display: block" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Assign Todo to a Resource</h4>
+                <button type="button" class="close" (click)="closeModal()">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+              <form #assignResourceForm="ngForm" (ngSubmit) = "assignAResource(assignResourceForm.value)">
+                  <div class="form-group">
+                      <label for="inputUserName">Select</label>
+                      <select [(ngModel)]="selectedValue" class="form-control" name="selectedValue">
+                        <option *ngFor="let resource of projectResources" [ngValue]="resource">{{resource.email}}</option>
+                      </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Add</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Assign A Todo to a resource Modal  ends here-->
+
+<!--
+<app-todo-assignment [showModal]="showModal" [projectResources]="projectResources" [todo]="currentTodo" [editable]= "editable" *ngIf="editable"></app-todo-assignment> -->

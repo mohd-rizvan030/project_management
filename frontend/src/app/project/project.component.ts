@@ -117,13 +117,39 @@ export class ProjectComponent implements OnInit {
     this.getProjectResources(projectId);
   }
 
-  editTodo(todo){
-    this.editable =true;
+  showTodoAssignmentModal(todo){
     this.currentTodo = todo;
     this.showModal = true;
   }
 
+  closeModal(){
+    this.showModal = false;
+  }
 
+  assignAResource(resource){
+    this.showModal =false;
+    let data = { todo_assignment: { user_id: resource.selectedValue.id , todo_id: this.currentTodo.id } }
+    if(this.currentTodo.resource)
+      this.http.put(API_URL + "/todo_assignments/"+this.currentTodo.todo_assignment_id, data)
+        .subscribe(
+          (response:Response) => {
+            console.log("Resource assined successfully");
+            this.currentTodo.resource = response["todo"].resource;
+        },
+         (error)=>{
+          console.log(error);
+        })
+    else
+      this.http.post(API_URL + "/todo_assignments", data)
+        .subscribe(
+          (response) => {
+            console.log("Resource assined successfully");
+            this.currentTodo.resource = response["todo"].resource;
+        },
+         (error)=>{
+          console.log(error);
+        })
+  }
 
   ngOnInit() {
   }
