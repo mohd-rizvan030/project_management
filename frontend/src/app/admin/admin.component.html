@@ -38,3 +38,8 @@
     </tbody>
   </table>
 </div>
+<div *ngIf="showChart">
+  <div *ngFor="let projectStatus of allProjectsStatus">
+    <app-project-chart [projectStatus]="projectStatus"></app-project-chart>
+  </div>
+</div>

@@ -18,6 +18,8 @@ import { TodoAssignmentComponent } from './todo-assignment/todo-assignment.compo
 import { AdminComponent } from './admin/admin.component';
 import { UpdateTodoStatusComponent } from './update-todo-status/update-todo-status.component';
 import { FooterComponent } from './footer/footer.component';
+import { GoogleChartComponent } from './google-chart/google-chart.component';
+import { ProjectChartComponent } from './project-chart/project-chart.component';
 const appRoutes:Routes = [
   {
     path: '',
@@ -72,6 +74,8 @@ const appRoutes:Routes = [
     AdminComponent,
     UpdateTodoStatusComponent,
     FooterComponent,
+    GoogleChartComponent,
+    ProjectChartComponent,
   ],
   imports: [
     BrowserModule,

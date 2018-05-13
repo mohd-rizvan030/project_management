@@ -12,6 +12,8 @@ const API_URL = environment.apiURL;
 export class AdminComponent implements OnInit {
   allTodos;
   projects;
+  allProjectsStatus;
+  showChart:boolean;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {
     this.getAllTodos();
   }
@@ -22,6 +24,7 @@ export class AdminComponent implements OnInit {
         (response) => {
         this.allTodos = response;
         this.getAllProjects(this.allTodos);
+        this.getAllProjectStatus()
       },
         (error)=>{
         console.log(error);
@@ -29,11 +32,11 @@ export class AdminComponent implements OnInit {
   }
 
   getAllProjects(todos){
-    this.projects = todos.map(todo => todo.project_name)
+    this.projects = 
+    Array.from(new Set(todos.map(todo => todo.project_name)))
   }
 
   filterProjectTodos(project, status){
-    console.log("");
     let doneTodos =  this.allTodos.filter(function (e) {
       return e.status == status &&
        e.project_name == project
@@ -41,7 +44,18 @@ export class AdminComponent implements OnInit {
     return doneTodos;
   }
 
-
+  getAllProjectStatus(){
+    this.allProjectsStatus = [];
+    for(let project of this.projects){
+      let projectStatus = {};
+      projectStatus["done"] = (this.filterProjectTodos(project, "Done")).length
+      projectStatus["inProgress"] = (this.filterProjectTodos(project, "In progress")).length
+      projectStatus["new"] = (this.filterProjectTodos(project, "New")).length
+      projectStatus["projectName"] = project;
+      this.allProjectsStatus.push(projectStatus);
+    }
+    this.showChart = true;
+  }
 
   ngOnInit() {
   }
