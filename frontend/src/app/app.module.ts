@@ -20,6 +20,7 @@ import { UpdateTodoStatusComponent } from './update-todo-status/update-todo-stat
 import { FooterComponent } from './footer/footer.component';
 import { GoogleChartComponent } from './google-chart/google-chart.component';
 import { ProjectChartComponent } from './project-chart/project-chart.component';
+import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
 const appRoutes:Routes = [
   {
     path: '',
@@ -81,9 +82,10 @@ const appRoutes:Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    FlashMessagesModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ ProjectsService, UserService ],
+  providers: [ ProjectsService, UserService, FlashMessagesService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

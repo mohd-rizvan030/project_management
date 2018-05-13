@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FlashMessagesService } from 'angular2-flash-messages';
 const API_URL = environment.apiURL;
 
 @Component({
@@ -13,7 +14,7 @@ const API_URL = environment.apiURL;
 })
 export class NewProjectComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient ) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private flashMessage: FlashMessagesService ) {
 
   }
 
@@ -22,12 +23,14 @@ export class NewProjectComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log("Project Created Successfully")
+          this.flashMessage.show('Project Created Successfully!', { cssClass: 'alert-success', timeout: 5000 });
           this.router.navigate(['projects']);
       },
        (error)=>{
-        console.log(error);
+        this.flashMessage.show('Error! ' + error["error"]["error"], { cssClass: 'alert-danger', timeout: 4000 });
       })
   }
+
   ngOnInit() {
   }
 

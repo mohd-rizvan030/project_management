@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FlashMessagesService } from 'angular2-flash-messages';
 const API_URL = environment.apiURL;
 
 @Component({
@@ -14,7 +15,7 @@ const API_URL = environment.apiURL;
 export class UpdateProjectComponent implements OnInit {
   project;
   project_id;
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient ) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private flashMessage: FlashMessagesService ) {
     this.project_id = this.route.params
     this.getProject(this.project_id)
   }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { FlashMessagesService } from 'angular2-flash-messages';
 const API_URL = environment.apiURL;
 
 @Component({
@@ -15,7 +16,7 @@ export class UpdateTodoStatusComponent implements OnInit {
   @Input() editable;
   statusList;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private flashMessage: FlashMessagesService) {
     this.statusList = [{name: "New", value: 0}, {name: "In Progress", value: 1}, {name: "Done", value: 2}];
   }
 

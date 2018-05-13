@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from './../services/user.service';
 import { environment } from 'environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { FlashMessagesService } from 'angular2-flash-messages';
 const API_URL = environment.apiURL;
 
 
@@ -14,7 +15,7 @@ const API_URL = environment.apiURL;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private user: UserService, private http: HttpClient) {
+  constructor(private router: Router, private user: UserService, private http: HttpClient, private flashMessage: FlashMessagesService) {
   }
 
   loginUser(user){
