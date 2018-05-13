@@ -14,9 +14,7 @@ import { ProjectComponent } from './project/project.component';
 import { NewProjectComponent } from './new-project/new-project.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
 import { NewTodoComponent } from './new-todo/new-todo.component';
-import { TodoAssignmentComponent } from './todo-assignment/todo-assignment.component';
 import { AdminComponent } from './admin/admin.component';
-import { UpdateTodoStatusComponent } from './update-todo-status/update-todo-status.component';
 import { FooterComponent } from './footer/footer.component';
 import { GoogleChartComponent } from './google-chart/google-chart.component';
 import { ProjectChartComponent } from './project-chart/project-chart.component';
@@ -80,9 +78,7 @@ const appRoutes:Routes = [
     NewProjectComponent,
     UpdateProjectComponent,
     NewTodoComponent,
-    TodoAssignmentComponent,
     AdminComponent,
-    UpdateTodoStatusComponent,
     FooterComponent,
     GoogleChartComponent,
     ProjectChartComponent,
