@@ -16,7 +16,13 @@ export class DashboardComponent implements OnInit {
   editable;
   currentTodo;
   showModal;
+  statusList;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private flashMessage: FlashMessagesService) {
+    this.statusList = [{name: "New", value: 0}, {name: "In Progress", value: 1}, {name: "Done", value: 2}];
+    this.myTodos = [];
+    this.editable = false;
+    this.currentTodo = {};
+    this.showModal = false;
     this.getMyTodos()
   }
 
@@ -31,11 +37,30 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  updateTodo(todo){
-    this.editable =true;
+  showUpdateTodoModal(todo){
     this.currentTodo = todo;
     this.showModal = true;
   }
+
+  closeModal(){
+    this.showModal = false;
+  }
+
+  updateTodoStatus(status){
+    this.showModal =false;
+    let data = { todo: { status: status.selectedValue.value } }
+    this.http.put(API_URL + "/todos/"+this.currentTodo.id, data)
+      .subscribe(
+        (response:Response) => {
+          this.currentTodo.status = response["status"];
+          console.log("Todo status updated successfully");
+      },
+       (error)=>{
+        console.log(error);
+      })
+  }
+
+
 
   ngOnInit() {
   }
