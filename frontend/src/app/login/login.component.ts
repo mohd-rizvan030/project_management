@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         (response) => {
           this.user.setUserLoggedIn()
           // if(response["user"]["isAdmin"]==true)
-          // this.user.setAdmin();
+          this.user.setAdmin();
           this.router.navigate(['dashboard']);
       },
        (error)=>{

@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
       .subscribe(
         (response) => {
          this.user.setUserLoggedIn();
-        //  this.user.setAdmin();
+         this.user.setAdmin();
       },
        (error)=>{
         console.log(error);

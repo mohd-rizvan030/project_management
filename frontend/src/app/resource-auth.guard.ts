@@ -13,9 +13,4 @@ export class ResourceAuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.user.getUserLoggedIn();
   }
-
-  canActivateForAdminOnly(next: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.user.getAdmin();
-  }
 }

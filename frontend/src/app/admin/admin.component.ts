@@ -16,6 +16,9 @@ export class AdminComponent implements OnInit {
   allProjectsStatus;
   showChart:boolean;
   constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private flashMessage: FlashMessagesService) {
+    this.allTodos = [];
+    this.projects = [];
+    this.showChart = false;
     this.getAllTodos();
   }
 
