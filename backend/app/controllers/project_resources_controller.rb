@@ -1,4 +1,5 @@
 class ProjectResourcesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_project_resource, only: [:show, :edit, :update, :destroy]
 
   # GET /project_resources

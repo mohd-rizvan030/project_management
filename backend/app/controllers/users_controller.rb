@@ -8,8 +8,6 @@ class UsersController < ApplicationController
 	end
 
   def logged_in
-    user = User.find_by_email "mohd.rizvan30@gmail.com"
-    sign_in(:user, user)
     if current_user
       render json: current_user, status: :ok
     else
@@ -30,10 +28,19 @@ class UsersController < ApplicationController
         sign_in(:user, user)
         render json: { message: 'Sign in successful' }, status: :ok
       else
-        render json: { message: { password: 'Invalid Password' }}
+        render json: { message: { password: 'Invalid Password' }}, status: :not_found
       end
     end
   end
+
+  def logout
+    if sign_out(current_user)
+      render json: { message: 'Logged out successfull' }, status: :ok
+    else
+      render json: {}, status: :unprocessable_entity
+    end
+  end
+
 
   private
     def fetch_user
