@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def logged_in
     if current_user
-      render json: current_user, status: :ok
+      render json: {user: current_user}, status: :ok
     else
       render json: { message: 'Nobody logged In' }, status: :not_found
     end
@@ -22,11 +22,11 @@ class UsersController < ApplicationController
     end
 
     if user.nil?
-        render json: { :message => 'User does not exist' }
+        render json: { :message => 'User does not exist' }, status: :not_found
     else
       if user.valid_password?(params[:user][:password])
         sign_in(:user, user)
-        render json: { message: 'Sign in successful' }, status: :ok
+        render json: {user: user}, status: :ok
       else
         render json: { message: { password: 'Invalid Password' }}, status: :not_found
       end

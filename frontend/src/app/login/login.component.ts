@@ -23,8 +23,12 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (response) => {
           this.user.setUserLoggedIn()
-          // if(response["user"]["isAdmin"]==true)
-          this.user.setAdmin();
+          if(response["user"].is_admin == true){
+            this.user.setAdmin();
+          }
+          else{
+            this.user.setMember();
+          }
           this.flashMessage.show('Logged in Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.router.navigate(['dashboard']);
       },

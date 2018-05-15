@@ -22,10 +22,14 @@ export class AppComponent implements OnInit{
       .subscribe(
         (response) => {
          this.user.setUserLoggedIn();
-         this.user.setAdmin();
+         if(response["user"].is_admin == true){
+           this.user.setAdmin();
+         }
+         else{
+           this.user.setMember();
+         }
       },
        (error)=>{
-        console.log(error);
         this.router.navigate(['login']);
       })
   }

@@ -4,9 +4,11 @@ import { Injectable } from '@angular/core';
 export class UserService {
   private isUserLoggedIn;
   private isAdmin;
+  private isMember;
   constructor() {
     this.isUserLoggedIn = false;
     this.isAdmin = false;
+    this.isMember = false;
   }
 
   setUserLoggedIn() {
@@ -19,10 +21,16 @@ export class UserService {
 
   setAdmin() {
     this.isAdmin = true;
+    this.isMember = false;
   }
 
   getAdmin() {
     return this.isAdmin;
+  }
+
+  setMember() {
+    this.isMember = true;
+    this.isAdmin = false;
   }
 
   setUserLoggedOut(){

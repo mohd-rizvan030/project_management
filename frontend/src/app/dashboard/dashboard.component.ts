@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
         this.myTodos = response
       },
         (error)=>{
-          this.flashMessage.show('Error! Some Error occured', { cssClass: 'alert-danger', timeout: 4000 });
+        
     })
   }
 
