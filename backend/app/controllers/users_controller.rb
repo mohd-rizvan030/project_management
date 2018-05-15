@@ -28,7 +28,7 @@ class UsersController < ApplicationController
         sign_in(:user, user)
         render json: {user: user}, status: :ok
       else
-        render json: { message: { password: 'Invalid Password' }}, status: :not_found
+        render json: { error: { error: 'Invalid Password' }}, status: :not_found
       end
     end
   end
@@ -41,10 +41,36 @@ class UsersController < ApplicationController
     end
   end
 
+  def user_signup
+    begin
+      user = User.where(email: user_params[:email]).first
+      if user.nil?
+        user = User.new(user_params)
+        if user.save
+          sign_in(:user, user)
+          render json: {user: user}, status: :ok
+          return
+        else
+          render json: {error: "Something went wrong"}, status: :internal_server_error
+          return
+        end
+      else
+        render json: {error: "User already exists"}, status: :not_acceptable
+        return
+      end
+    rescue Exception => e
+      render json: {error: "Something went wrong"}, status: :internal_server_error
+    end
+  end
 
   private
     def fetch_user
       @user = User.find_by_id(params[:id])
+    end
+
+    def user_params
+      params[:user][:email] = params[:user][:email].to_s.downcase
+      params.require(:user).permit(:email, :password)
     end
 
 end

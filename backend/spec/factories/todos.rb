@@ -23,10 +23,5 @@
 
 FactoryGirl.define do
   factory :todo do
-    summary "MyString"
-    description "MyText"
-    status 1
-    user_id 1
-    project nil
   end
 end

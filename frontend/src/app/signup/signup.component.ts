@@ -10,16 +10,16 @@ const API_URL = environment.apiURL;
 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class LoginComponent implements OnInit {
+export class SignupComponent implements OnInit {
   constructor(private router: Router, private user: UserService, private http: HttpClient, private flashMessage: FlashMessagesService) {
   }
 
-  loginUser(user){
-    this.http.post(API_URL + "/users/sign_in", {user: { email: user.username , password: user.password } })
+  signupUser(user){
+    this.http.post(API_URL + "/users/sign_up", {user: { email: user.username , password: user.password } })
       .subscribe(
         (response) => {
           this.user.setUserLoggedIn()
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           else{
             this.user.setMember();
           }
-          this.flashMessage.show('Logged in Successfully!', { cssClass: 'alert-success', timeout: 4000 });
+          this.flashMessage.show('Signup and Logged in Successfully!', { cssClass: 'alert-success', timeout: 4000 });
           this.router.navigate(['dashboard']);
       },
        (error)=>{
@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit {
       })
     }
 
-  goToSignup(){
-    this.router.navigate(['signup']);
-  }
+    goToLogin(){
+      this.router.navigate(['login']);
+    }
 
   ngOnInit() {
   }

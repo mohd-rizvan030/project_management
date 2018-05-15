@@ -21,6 +21,7 @@ import { ProjectChartComponent } from './project-chart/project-chart.component';
 import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
 import { ResourceAuthGuard } from './resource-auth.guard';
 import { AdminAuthGuard } from './admin-auth.guard';
+import { SignupComponent } from './signup/signup.component';
 const appRoutes:Routes = [
   {
     path: '',
@@ -65,6 +66,10 @@ const appRoutes:Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   }
 ]
 @NgModule({
@@ -82,6 +87,7 @@ const appRoutes:Routes = [
     FooterComponent,
     GoogleChartComponent,
     ProjectChartComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
