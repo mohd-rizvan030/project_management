@@ -24,50 +24,28 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe TodoAssignmentsController, type: :controller do
-
+  def user_login
+    user=FactoryGirl.create(:user)
+    @u=User.where(email: 'test01@testing.com').first
+    if(@u.blank?)
+      @u=User.create(email: 'test01@testing.com', password: 'new1life', password_confirmation: 'new1life', is_admin: true)
+    end
+    @u.save
+    sign_in @u
+  end
   # This should return the minimal set of attributes required to create a valid
   # TodoAssignment. As you add validations to TodoAssignment, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # TodoAssignmentsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+
 
   describe "GET #index" do
     it "returns a success response" do
-      todo_assignment = TodoAssignment.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_success
-    end
-  end
-
-  describe "GET #show" do
-    it "returns a success response" do
-      todo_assignment = TodoAssignment.create! valid_attributes
-      get :show, params: {id: todo_assignment.to_param}, session: valid_session
-      expect(response).to be_success
-    end
-  end
-
-  describe "GET #new" do
-    it "returns a success response" do
-      get :new, params: {}, session: valid_session
-      expect(response).to be_success
-    end
-  end
-
-  describe "GET #edit" do
-    it "returns a success response" do
-      todo_assignment = TodoAssignment.create! valid_attributes
-      get :edit, params: {id: todo_assignment.to_param}, session: valid_session
+      user_login
+      get :index
       expect(response).to be_success
     end
   end
@@ -75,66 +53,52 @@ RSpec.describe TodoAssignmentsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new TodoAssignment" do
+        user_login
+        project = Project.create(name: "TestProj01")
+        todo = Todo.create(summary: "Test1", project_id: project.id)
+        user = User.create(email: "test123@testing.com", password: "test1234")
         expect {
-          post :create, params: {todo_assignment: valid_attributes}, session: valid_session
+          post :create, params: {todo_assignment: { todo_id: todo.id, user_id: user.id} }
         }.to change(TodoAssignment, :count).by(1)
-      end
-
-      it "redirects to the created todo_assignment" do
-        post :create, params: {todo_assignment: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(TodoAssignment.last)
       end
     end
 
     context "with invalid params" do
-      it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {todo_assignment: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+      it "does not create a TodoAssignment" do
+        user_login
+        user = User.create(email: "test123@testing.com", password: "test1234")
+        expect {
+          post :create, params: {todo_assignment: { user_id: user.id} }
+        }.to change(TodoAssignment, :count).by(0)
       end
     end
   end
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested todo_assignment" do
-        todo_assignment = TodoAssignment.create! valid_attributes
-        put :update, params: {id: todo_assignment.to_param, todo_assignment: new_attributes}, session: valid_session
-        todo_assignment.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the todo_assignment" do
-        todo_assignment = TodoAssignment.create! valid_attributes
-        put :update, params: {id: todo_assignment.to_param, todo_assignment: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(todo_assignment)
-      end
-    end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        todo_assignment = TodoAssignment.create! valid_attributes
-        put :update, params: {id: todo_assignment.to_param, todo_assignment: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+      it "updates the requested project" do
+        user_login
+        project = FactoryGirl.create(:project)
+        todo = Todo.create(summary: "Test1", project_id: project.id)
+        user = User.create(email: "test123@testing.com", password: "test1234")
+        todo_assignment = TodoAssignment.create(todo_id: todo.id, user_id: user.id)
+        user1 = User.create(email: "test1test@testing.com", password: "test1234")
+        put :update, params: {id: todo_assignment.id, todo_assignment: {user_id: user1.id}}
+        expect(TodoAssignment.where(id: todo_assignment.id).first.user_id).to be == user1.id
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested todo_assignment" do
-      todo_assignment = TodoAssignment.create! valid_attributes
+    it "destroys the requested project" do
+      user_login
+      project = FactoryGirl.create(:project)
+      todo = Todo.create(summary: "Test1", project_id: project.id)
+      user = User.create(email: "test123@testing.com", password: "test1234")
+      todo_assignment = TodoAssignment.create(todo_id: todo.id, user_id: user.id)
       expect {
-        delete :destroy, params: {id: todo_assignment.to_param}, session: valid_session
+        delete :destroy, params: {id: todo_assignment.id}
       }.to change(TodoAssignment, :count).by(-1)
-    end
-
-    it "redirects to the todo_assignments list" do
-      todo_assignment = TodoAssignment.create! valid_attributes
-      delete :destroy, params: {id: todo_assignment.to_param}, session: valid_session
-      expect(response).to redirect_to(todo_assignments_url)
     end
   end
 
