@@ -1,6 +1,7 @@
 class ProjectResourcesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project_resource, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /project_resources
   # GET /project_resources.json
@@ -17,15 +18,6 @@ class ProjectResourcesController < ApplicationController
     else
       render json:  {error: "No such assignment exists"} , status: :unprocessable_entity
     end
-  end
-
-  # GET /project_resources/new
-  def new
-    @project_resource = ProjectResource.new
-  end
-
-  # GET /project_resources/1/edit
-  def edit
   end
 
   # POST /project_resources

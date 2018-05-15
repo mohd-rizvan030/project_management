@@ -6,12 +6,14 @@ class TodosController < ApplicationController
   # GET /todos.json
   def index
     if params[:project_id]
+      authorize! :read, :project_todos, :message => "Not authorized"
       @todos = Todo.where(project_id: params[:project_id])
     elsif params[:myTodos]
-      # user_id = current_user.id
-      user_id = 1
+      authorize! :read, :my_todos, :message => "Not authorized"
+      user_id = current_user.id
       @todos = Todo.joins(:todo_assignment).where("todo_assignments.user_id =?", user_id).order("todos.project_id")
     else
+      authorize! :read, :all_todos, :message => "Not authorized"
       @todos = Todo.all.order(:project_id)
     end
     render json: @todos, status: :ok
@@ -20,6 +22,7 @@ class TodosController < ApplicationController
   # GET /todos/1
   # GET /todos/1.json
   def show
+    authorize! :read, :todo, :message => "Not authorized"
     if @todo
       render json: @todo, status: :ok
     else
@@ -27,18 +30,11 @@ class TodosController < ApplicationController
     end
   end
 
-  # GET /todos/new
-  def new
-    @todo = Todo.new
-  end
-
-  # GET /todos/1/edit
-  def edit
-  end
 
   # POST /todos
   # POST /todos.json
   def create
+    authorize! :create, :todo, :message => "Not authorized"
     @todo = Todo.new(todo_create_params)
     if @todo.save
       render json: @todo, status: :ok
@@ -50,6 +46,10 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1
   # PATCH/PUT /todos/1.json
   def update
+    todo_assignment = @todo.todo_assignment
+    if todo_assignment and todo_assignment.user_id == current_user.id
+      authorize! :update, :my_todo, :message => "Not authorized"
+    end
     if @todo
       if @todo.update(todo_update_params)
         render json: @todo, status: :ok
@@ -64,6 +64,7 @@ class TodosController < ApplicationController
   # DELETE /todos/1
   # DELETE /todos/1.json
   def destroy
+    authorize! :destroy, :todo, :message => "Not authorized"
     if @todo
       if @todo.destroy
         render json: { success: 'Todo was successfully destroyed.' }, status: :ok

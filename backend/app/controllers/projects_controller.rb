@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /projects
   # GET /projects.json
   def index
@@ -17,16 +17,6 @@ class ProjectsController < ApplicationController
     else
       render json:  {error: "Project does not exist"} , status: :unprocessable_entity
     end
-  end
-
-
-  # GET /projects/new
-  def new
-    @project = Project.new
-  end
-
-  # GET /projects/1/edit
-  def edit
   end
 
   # POST /projects

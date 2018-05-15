@@ -1,7 +1,7 @@
 class TodoAssignmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_todo_assignment, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
   # GET /todo_assignments
   # GET /todo_assignments.json
   def index
