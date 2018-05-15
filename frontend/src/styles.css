@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+
+.ml-25-pc{
+  margin-left: 25%;
+}
+
+.ml-50-px{
+  margin-left: 50px;
+}
+.mt-10-pc{
+  margin-top: 10%;
+}
+
+.diplay-flex{
+  display: flex;
+}
+
+.text-align-left{
+  text-align: left;
+}
+
+.text-align-right{
+  text-align: right;
+}
+
+.mt-50-px{
+  margin-top: 50px;
+}
+
+.pb-50-px{
+  padding-bottom: 50px;
+}

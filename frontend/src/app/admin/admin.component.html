@@ -1,0 +1,45 @@
+<h2>Admin Dashboard</h2>
+<div class="container">
+  <div class="text-align-left mt-50-px">
+    <h4>Projects status</h4>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr *ngIf="projects">
+        <th>Status</th>
+        <th *ngFor="let project of projects">{{ project }}</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="projects">
+      <tr >
+        <td><b>Done</b></td>
+        <td *ngFor="let project of projects">
+          <p *ngFor="let todo of filterProjectTodos(project, 'Done')">
+            {{ todo.summary }}
+          </p>
+        </td>
+      </tr>
+      <tr >
+        <td><b>In Progress</b></td>
+        <td *ngFor="let project of projects">
+          <p *ngFor="let todo of filterProjectTodos(project, 'In progress')">
+            {{ todo.summary }}
+          </p>
+        </td>
+      </tr>
+      <tr >
+        <td><b>New</b></td>
+        <td *ngFor="let project of projects">
+          <p *ngFor="let todo of filterProjectTodos(project, 'New')">
+            {{ todo.summary }}
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="showChart">
+  <div *ngFor="let projectStatus of allProjectsStatus">
+    <app-project-chart [projectStatus]="projectStatus"></app-project-chart>
+  </div>
+</div>

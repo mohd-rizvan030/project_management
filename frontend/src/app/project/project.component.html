@@ -1,0 +1,126 @@
+<div class="container">
+  <h2>Project Details</h2>
+  <div class="col-md-12" *ngIf="project">
+    <div class="col-md-6 diplay-flex">
+        <div class="col-md-4 text-align-left">Name</div>
+       <div class="col-md-8">
+         {{project.name}}
+       </div>
+    </div>
+    <div class="col-md-6 diplay-flex">
+      <div class="col-md-4 text-align-left">Desciption</div>
+       <div class="col-md-8">
+         {{project.description}}
+       </div>
+    </div>
+  </div>
+  <div class="text-align-right">
+    <button class="btn btn-primary" data-target="#addARespurceModal" data-toggle="modal" (click)="getAvailableResourcesForProject()">Add a Resource</button>
+    <button class="btn btn-primary" (click)="newTodo(project.id)">Add a Todo</button>
+  </div>
+  <div class="text-align-left mt-50-px">
+    <h4>Todos</h4>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sumaary</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Resource</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="todos">
+      <tr *ngFor="let todo of todos">
+        <td>{{ todo.summary }}</td>
+        <td>{{ todo.description }}</td>
+        <td>{{ todo.status }}</td>
+        <td >{{ todo.resource }}</td>
+        <td>
+          <button class="btn btn-danger" (click) = "deleteTodo(todo.id, project.id)">Delete</button>
+        </td>
+        <td>
+        <button class="btn btn-primary" (click)="showTodoAssignmentModal(todo)" >Assign</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Todos End -->
+<!-- Resource in Project  -->
+<div class="text-align-left ml-50-px mt-50-px">
+  <h4>Resources</h4>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="projectResources">
+    <tr *ngFor="let resource of projectResources">
+      <td>{{resource.email}}</td>
+      <td>
+        <button class="btn btn-danger" (click) = "removeResourceFromProject(resource.id, project.id)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- resources ends here -->
+
+<!-- Add a resource to Project Modal -->
+<div class="modal fade" tabindex="-1" id="addARespurceModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Resource to Project</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+              <form #addResourceForm="ngForm" (ngSubmit) = "addResource(addResourceForm.value)">
+                  <div class="form-group">
+                      <label for="inputUserName">Select</label>
+                      <select [(ngModel)]="selectedValue" class="form-control" name="selectedValue">
+                        <option *ngFor="let resource of availableResources" [ngValue]="resource">{{resource.email}}</option>
+                      </select>
+                  </div>
+                  <button data-target="#addARespurceModal" data-toggle="modal" id="addResource" type="submit" class="btn btn-primary">Add</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add a resource to project modal ends here -->
+
+<!-- Assign A Todo to a resource Modal  -->
+<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
+  <div class="modal" tabindex="-1" role="dialog" style="display: block" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Assign Todo to a Resource</h4>
+                <button type="button" class="close" (click)="closeModal()">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+              <form #assignResourceForm="ngForm" (ngSubmit) = "assignAResource(assignResourceForm.value)">
+                  <div class="form-group">
+                      <label for="inputUserName">Select</label>
+                      <select [(ngModel)]="selectedValue" class="form-control" name="selectedValue">
+                        <option *ngFor="let resource of projectResources" [ngValue]="resource">{{resource.email}}</option>
+                      </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Add</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Assign A Todo to a resource Modal  ends here-->

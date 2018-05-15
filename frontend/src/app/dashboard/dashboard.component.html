@@ -1,0 +1,54 @@
+<h2>{{ dashboardTitle }}</h2>
+<div class="container">
+  <div class="text-align-left mt-50-px">
+    <h4>My Todos</h4>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sumaary</th>
+        <th>Description</th>
+        <th>Project</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="myTodos">
+      <tr *ngFor="let todo of myTodos">
+        <td>{{ todo.summary }}</td>
+        <td>{{ todo.description }}</td>
+        <td>{{ todo.project_name }}</td>
+        <td>{{ todo.status }}</td>
+        <td><button class="btn btn-primary" (click)="showUpdateTodoModal(todo)" >Update Status</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Update Todo Status Modal -->
+<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
+  <div class="modal" tabindex="-1" role="dialog" style="display: block" [style.display]="showModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Change Todo Status</h4>
+                <button type="button" class="close"  (click)="closeModal()">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+              <form #updateTodoStatusForm="ngForm" (ngSubmit) = "updateTodoStatus(updateTodoStatusForm.value)">
+                  <div class="form-group">
+                      <label for="inputUserName">Select</label>
+                      <select [(ngModel)]="selectedValue" class="form-control" name="selectedValue">
+                        <option *ngFor="let status of statusList" [ngValue]="status">{{status.name}}</option>
+                      </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Update Todo Status Modal ends -->
