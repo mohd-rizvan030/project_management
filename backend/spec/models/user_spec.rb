@@ -33,4 +33,8 @@ RSpec.describe Todo, type: :model do
   it "does not create a user without email" do
     expect(User.create(password: "test1234")).to be_invalid
   end
+
+  it "does not create a user without password" do
+    expect(User.create(email: "test@testing.com")).to be_invalid
+  end
 end
