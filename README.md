@@ -20,5 +20,4 @@ Things you may want to cover:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-
-* ...
+ 1) Once Everything is setup, Run a rake task to create admin user:
