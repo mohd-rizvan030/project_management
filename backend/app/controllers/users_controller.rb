@@ -45,15 +45,21 @@ class UsersController < ApplicationController
     begin
       user = User.where(email: user_params[:email]).first
       if user.nil?
-        user = User.create(user_params)
-        debugger
-        sign_in(:user, user)
-        render json: {user: user}, status: :ok
+        user = User.new(user_params)
+        if user.save
+          sign_in(:user, user)
+          render json: {user: user}, status: :ok
+          return
+        else
+          render json: {error: "Something went wrong"}, status: :internal_server_error
+          return
+        end
       else
         render json: {error: "User already exists"}, status: :not_acceptable
+        return
       end
     rescue Exception => e
-      render json: {error: "User already exists"}, status: :internal_server_error
+      render json: {error: "Something went wrong"}, status: :internal_server_error
     end
   end
 
