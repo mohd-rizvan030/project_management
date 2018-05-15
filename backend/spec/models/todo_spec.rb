@@ -22,5 +22,12 @@
 require 'rails_helper'
 
 RSpec.describe Todo, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "creates a todo" do
+    @project = FactoryGirl.create(:project, :id => 1)
+    expect(Todo.create(summary: "Test1", project_id: @project.id)).to be_valid
+  end
+
+  it "does not create a todo without project" do
+    expect(Todo.create(summary: "Test1", project_id: nil)).to be_invalid
+  end
 end

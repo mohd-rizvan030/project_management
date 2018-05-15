@@ -25,6 +25,12 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Todo, type: :model do
+  it "creates a user" do
+    expect(User.create(email: "test@testing.com", password: "test1234")).to be_valid
+  end
+
+  it "does not create a user without email" do
+    expect(User.create(password: "test1234")).to be_invalid
+  end
 end
