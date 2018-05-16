@@ -10,7 +10,7 @@ default: &default
   encoding: unicode
   pool: 5
   username: rizvan
-  password: new life
+  password: testuser123
 
 development:
   <<: *default

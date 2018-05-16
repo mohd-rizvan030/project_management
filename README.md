@@ -55,6 +55,10 @@ Frontend Setup:
 	x) Hit 'http://localhost:4200'
 	Congrates! you are on home page of mobile view.
 
-  Your Admin Account Credentials are:
+  xi) Your Admin Account Credentials are:
   username: "test_admin@yopmail.com"
   password: "12345678"
+
+==>Note: To run the rpsec unit test:
+  => Go to project_management/backend and
+  => $bundle exec rpsec
